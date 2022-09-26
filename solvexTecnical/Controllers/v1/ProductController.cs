@@ -12,14 +12,12 @@ namespace solvexTecnical.Presentation.API.Controllers.v1
     {
         private readonly IProductsServices _productsServices;
         private readonly IBrandService _brandServices;
-        private readonly ISuperMarketService _superMarketServices;
-        public ProductController(IProductsServices productsServices, IBrandService brandService, ISuperMarketService superMarketService)
+        public ProductController(IProductsServices productsServices, IBrandService brandService)
         {
             _productsServices = productsServices;
             _brandServices = brandService;
-            _superMarketServices = superMarketService;
         }
-
+        
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

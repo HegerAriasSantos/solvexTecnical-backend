@@ -102,7 +102,7 @@ namespace solvexTecnical.Presentation.API.Controllers.v1
                 var shoppingListFound = await _shoppingList.GetByIdDTO(id);
                 if (shoppingListFound == null)
                 {
-                    ModelState.AddModelError("Error", $"Brand with id {id} don't exist");
+                    ModelState.AddModelError("Error", $"Shopping list with id {id} don't exist");
                     return BadRequest(ModelState);
                 }
                 shoppingList.Id = id;
