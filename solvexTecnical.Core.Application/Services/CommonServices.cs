@@ -18,17 +18,17 @@ namespace solvexTecnical.Core.Application.Services
             _mapper = mapper;
         }
 
-        public virtual async Task<DTO> Add(DTO saveVM)
+        public virtual async Task<DTO> Add(DTO DTO)
         {
-            T t = _mapper.Map<T>(saveVM);
+            T t = _mapper.Map<T>(DTO);
             t = await _repo.AddAsync(t);
             DTO dto = _mapper.Map<DTO>(t);
             return dto;
         }
 
-        public virtual async Task Update(DTO saveVM, int id)
+        public virtual async Task Update(DTO DTO, int id)
         {
-            T t = _mapper.Map<T>(saveVM);
+            T t = _mapper.Map<T>(DTO);
             await _repo.UpdateAsync(t, id);
         }
 
@@ -55,7 +55,7 @@ namespace solvexTecnical.Core.Application.Services
         public virtual async Task Delete(int id)
         {
             T t = await _repo.GetByIdAsync(id);
-            await _repo.DeleteAsync(t,id);
+            await _repo.DeleteAsync(t, id);
         }
 
         public virtual async Task<List<DTO>> GetAllWithIncludesAsync(List<string> props)

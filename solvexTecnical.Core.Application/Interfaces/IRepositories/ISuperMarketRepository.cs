@@ -8,6 +8,6 @@ namespace solvexTecnical.Core.Application.Interfaces.IRespositories
 {
     public interface ISuperMarketRepository : ICommonRepository<SuperMarket>
     {
-
+        Task<SuperMarket> GetOneByShoppingList(int id);
     }
 }

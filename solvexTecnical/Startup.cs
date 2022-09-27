@@ -33,6 +33,16 @@ namespace solvexTecnical
     .AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                                      policy =>
+                                      {
+                                          policy.AllowAnyOrigin()
+                                                .AllowAnyMethod()
+                                                .AllowAnyHeader();
+                                      });
+            });
             AddPersistenceConfiguration.AddPersistenceInfrastructure(services, Configuration);
             ServicesRegistration.AddApplicationLayer(services, Configuration);
         }
@@ -50,6 +60,7 @@ namespace solvexTecnical
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

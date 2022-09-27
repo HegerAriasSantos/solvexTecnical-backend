@@ -11,6 +11,6 @@ namespace solvexTecnical.Core.Application.Interfaces.IServicies
     {
         Task<ShoppingListDTO> AddShoppingList(ShoppingListDTO shoppingList);
         Task<List<ShoppingListDTO>> GetAllByUser(int userId);
-        Task<List<ShoppingListDTO>> GetAll();
+        Task<List<ShoppingListDTO>> GetAllShoppingLists();
     }
 }

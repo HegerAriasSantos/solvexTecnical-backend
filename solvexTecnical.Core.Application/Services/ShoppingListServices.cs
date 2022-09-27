@@ -62,7 +62,7 @@ namespace solvexTecnical.Core.Application.Services
 
             foreach (var item in shoppingListDTOs)
             {
-                var superMarket  = await _superMarketRepository.GetByIdAsync(item.SuperMarketId);
+                var superMarket  = await _superMarketRepository.GetOneByShoppingList(item.SuperMarketId);
                 item.SuperMarketName = superMarket.Name;
                 var User = await _usersRepository.GetByIdAsync(item.UserId);
                 item.User = _mapper.Map<UserDTO>(User);
@@ -77,14 +77,14 @@ namespace solvexTecnical.Core.Application.Services
             return shoppingListDTOs;
         }
 
-        public async Task<List<ShoppingListDTO>> GetAll()
+        public async Task<List<ShoppingListDTO>> GetAllShoppingLists()
         {
             var shoppingLists = await _shoppingListRepository.GetAllAsync();
             var shoppingListDTOs = _mapper.Map<List<ShoppingList>, List<ShoppingListDTO>>(shoppingLists);
 
             foreach (var item in shoppingListDTOs)
             {
-                var superMarket = await _superMarketRepository.GetByIdAsync(item.SuperMarketId);
+                var superMarket = await _superMarketRepository.GetOneByShoppingList(item.SuperMarketId);
                 item.SuperMarketName = superMarket.Name;
                 var User = await _usersRepository.GetByIdAsync(item.UserId);
                 item.User = _mapper.Map<UserDTO>(User);

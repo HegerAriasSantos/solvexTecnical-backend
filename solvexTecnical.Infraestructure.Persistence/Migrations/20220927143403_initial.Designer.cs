@@ -10,7 +10,7 @@ using solvexTecnical.Infraestructure.Persistence.Context;
 namespace solvexTecnical.Infraestructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220926054521_initial")]
+    [Migration("20220927143403_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

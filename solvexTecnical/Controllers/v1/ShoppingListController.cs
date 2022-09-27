@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using solvexTecnical.Core.Application.DTOs;
 using solvexTecnical.Core.Application.Interfaces.IServicies;
+using solvexTecnical.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -74,7 +75,7 @@ namespace solvexTecnical.Presentation.API.Controllers.v1
         {
             try
             {
-                List<ShoppingListDTO> shoppingLists = await _shoppingList.GetAll();
+                List<ShoppingListDTO> shoppingLists = await _shoppingList.GetAllShoppingLists();
 
                 if (shoppingLists.Count == 0)
                     return NoContent();
@@ -118,11 +119,33 @@ namespace solvexTecnical.Presentation.API.Controllers.v1
             }
         }
 
-        [HttpGet("user/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShoppingListDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get([FromRoute] int id)
+        {
+            try
+            {
+                var shoppingListFound = await _shoppingList.GetByIdDTO(id);
+                if (shoppingListFound == null)
+                {
+                    ModelState.AddModelError("Error", $"Shopping list with id {id} don't exist");
+                    return BadRequest(ModelState);
+                }
+                return Ok(shoppingListFound);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("user/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShoppingListDTO))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetByUserId([FromRoute] int id)
         {
             try
             {
